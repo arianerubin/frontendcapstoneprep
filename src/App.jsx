@@ -4,8 +4,10 @@ import Login from "./components/Login/Login"
 import { allUsers} from "./components/users/allUsers"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { BrowserRouter as Route, Routes } from "react-router-dom";
 
 function App() {
+
   const [authToken, setAuthToken] = useState("token");
 
 
