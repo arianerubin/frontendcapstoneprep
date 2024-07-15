@@ -5,11 +5,11 @@ const registerApi = api.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (credentials) => ({
-        url: "/api/users/register",
+        url: "/api/user/register",
         method: "POST",
         body: credentials,
       }),
-      invalidateTags: ["Users"],
+      invalidateTags: ["User"],
     }),
   }),
 });
@@ -23,6 +23,7 @@ const registerSlice = createSlice({
   name: "register",
   initialState: {
     users: {},
+    token: "",
   },
   reducers: {},
   extraReducers: (builder) => {

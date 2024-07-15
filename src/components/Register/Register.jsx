@@ -27,7 +27,7 @@ export default function Register() {
       console.log(form);
       success = await registerUser(form).unwrap();
       if (success) {
-        navigate("/home");
+        navigate("/Login");
       }
     } catch (error) {
       console.log(error);
@@ -43,11 +43,11 @@ export default function Register() {
           <div className="input-icon">
             <i className="fas fa-user"></i>
             <input
-              type="firstname"
+              type="firstName"
               className="form-control"
               aria-describedby="emailHelp"
               placeholder="First Name"
-              name="firstname"
+              name="firstName"
               onChange={updateForm}
             />
           </div>
@@ -58,11 +58,11 @@ export default function Register() {
           <div className="input-icon">
             <i className="fas fa-user"></i>
             <input
-              type="lastname"
+              type="lastName"
               className="form-control"
               aria-describedby="emailHelp"
               placeholder="Last Name"
-              name="lastname"
+              name="lastName"
               onChange={updateForm}
             />
           </div>

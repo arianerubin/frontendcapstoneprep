@@ -1,37 +1,37 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Register from "./components/Register/Register";
-import Login from "./components/Login/Login"
-import { allUsers} from "./components/users/allUsers"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/Login/Login";
+import Home from "./components/users/Home";
+// import Protected from "./Shared/Protected";
 import "./App.css";
-import { BrowserRouter as Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-
-  const [authToken, setAuthToken] = useState("token");
-
-
-const handleLogout = () => {
-    localStorage.removeItem('token');
-    setAuthToken(null);
-  };
+  const [token, setToken] = useState(null);
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   setAuthToken(null);
 
   return (
     <>
-        <div className="content-overlay">
-          <h1 className="title">Instructor List</h1>
+      <div className="content-overlay">
+        <h1 className="title">Instructor List</h1>
 
+        <Router>
           <Routes>
-            <Route path="/allUsers" element={<allUsers />} />
-            <Route path="/Register" element={<Register />}/>
-            <Route path="/Login" element={<Login />}/>
+            <Route path="/" element={<Login />} />
+            {/* <Route path="/getAllUsers" element={<Protected />}>
+              <Route path="/getAllUsers" element={<allUsers />}></Route>
+            </Route> */}
+            {/* <Route path="/allUsers" element={<getAllUsers />} /> */}
+            <Route path="/Home" element={<Home />}></Route>
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Login" element={<Login />}></Route>
           </Routes>
-        </div>
-     
+        </Router>
+      </div>
     </>
   );
 }
 
 export default App;
-
-

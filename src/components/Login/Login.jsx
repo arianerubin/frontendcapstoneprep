@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./LoginSlice";
-// import Register from "../Register/Register";
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function Login() {
       let success = false;
       success = await login(form).unwrap();
       if (success) {
-        navigate("/Account");
+        navigate("/Home");
       }
       console.log(success);
     } catch (error) {
@@ -62,14 +62,16 @@ export default function Login() {
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
         <button
           type="submit"
           className="btn btn-success"
-          onClick={() => navigate("/Home")}
-        ></button>
+          onClick={() => navigate("/Register")}
+        >
+          Register
+        </button>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
   );
