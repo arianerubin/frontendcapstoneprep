@@ -6,8 +6,9 @@ const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     fetchAllUser: builder.query({
       query: () => ({
-        url: "/api/users/all_users", //added all_users to url
+        url: "/api/user/all_users", //added all_users to url
         method: "GET",
+        id,
       }),
     }),
   }),

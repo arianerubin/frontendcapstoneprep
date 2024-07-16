@@ -2,7 +2,7 @@ import React from "react";
 import { useFetchAllUsersQuery } from "../users/allUsersSlice";
 
 const Home = () => {
-  const { data, error, isLoading } = useFetchAllUsersQuery() || {};
+  const { data = {}, error, isLoading } = useFetchAllUsersQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -15,10 +15,12 @@ const Home = () => {
   if (!data) {
     return <div>No data available</div>;
   }
-  
+
+  const { user } = data;
+
   return (
     <div className="users">
-      {data.users.map((user) => (
+      {user.data.map((user) => (
         <div className="user" key={user.userId}>
           <p> userId: {user.userId}</p>
           <p> firstName: {user.firstName} </p>
