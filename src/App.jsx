@@ -2,7 +2,7 @@ import { useState } from "react";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Home from "./components/users/Home";
-// import Protected from "./Shared/Protected";
+import Protected from "./Shared/Protected";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -20,10 +20,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="/getAllUsers" element={<Protected />}>
-              <Route path="/getAllUsers" element={<allUsers />}></Route>
-            </Route> */}
-            {/* <Route path="/allUsers" element={<getAllUsers />} /> */}
+            <Route path="/" element={<updateUser />}></Route>
             <Route path="/Home" element={<Home />}></Route>
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<Login />}></Route>

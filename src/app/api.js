@@ -16,4 +16,16 @@ export const api = createApi({
   }),
   tagTypes: ["User"],
   endpoints: () => ({}),
+  // getAllUsers: builder.query({
+  //   query: () => "users",
+  //   url: "allUsers",
+  //   method: "GET",
+  // }),
+  // updateUsers: builder.query({
+  //   query: () => `/api/user/${userId}/change`,
+  //   method: "PATCH",
+  //   body: { firstName, lastName, password },
+  // }),
 });
+
+// export const { useGetAllUsersQuery, useUpdateUsersQuery } = userApi;
