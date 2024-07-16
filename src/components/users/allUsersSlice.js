@@ -8,7 +8,6 @@ const userApi = api.injectEndpoints({
       query: () => ({
         url: "/api/user/all_users", //added all_users to url
         method: "GET",
-        id,
       }),
     }),
   }),
@@ -23,5 +22,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { useFetchAllUsersQuery } = userApi;
+export const { useFetchAllUserQuery } = userApi;
 export default userSlice.reducer;
