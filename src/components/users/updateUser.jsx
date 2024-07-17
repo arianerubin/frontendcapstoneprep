@@ -1,61 +1,80 @@
-import React from "react";
-import { useFetchUpdateUser } from "./allUsersSlice";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+// import { useFetchUpdateUserQuery } from "./updateUserSlice";
+import { useSelector } from "react-redux";
+import { useUpdateUserMutation } from "./updateUserSlice";
 
-export default function updateUser() {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    password: "",
+const updateSpecificUser = () => {
+  const user = useSelector((state) => {
+    return state.user.value;
+  });
+  console.log("USER??@@?@?@?@?", user);
+  const [formState, setFormState] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    password: user.password,
   });
 
+  const [updateUser] = useUpdateUserMutation();
+  console.log(updateUser);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUser({ ...user, [name]: value });
+    setUser({ ...formState, [name]: value });
   };
 
-  const handleUpdateUser = () => {
-    useFetchUpdateUser(user);
-    console.log("User updated successfully");
-    setUser({
-      firstName: "",
-      lastName: "",
-      password: "",
-    });
+  const handleSubmit = async (event) => {
+    console.log("event :>> ", event);
+    event.preventDefault();
+    try {
+      const body = formState;
+      console.log("bodyyydy", body);
+      console.log("IDDDD", user.id);
+      // await updateUser({ id: user.id, body });
+      // alert("User successfully");
+      //   // Navigate("Home");
+      //   window.location.reload();
+    } catch (error) {
+      console.error("Failed to Update User", error);
+      alert("Failed to Update User");
+    }
   };
+
   return (
     <div>
-      <h2>Update User Information</h2>
-      <form>
-        <div>
-          <label>First Name:</label>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="exampleInputFirstName">First Name</label>
           <input
             type="text"
             name="firstName"
-            value={user.firstName}
-            onChange={handleInputChange}
+            className="form-control"
+            aria-describedby="firstNameHelp"
+            placeholder="Enter first name"
+            value={formState.firstName}
           />
-        </div>
-        <div>
-          <label>Last Name:</label>
           <input
             type="text"
             name="lastName"
-            value={user.lastName}
-            onChange={handleInputChange}
+            className="form-control"
+            aria-describedby="lastNameHelp"
+            placeholder="Enter last name"
+            value={formState.lastName}
           />
-        </div>
-        <div>
-          <label>Password:</label>
+          <label htmlFor="exampleInputPassword">Password</label>
           <input
             type="password"
             name="password"
-            value={user.password}
-            onChange={handleInputChange}
+            className="form-control"
+            id="exampleInputPassword"
+            placeholder="Enter new password"
+            value={formState.password}
           />
         </div>
+        <button type="submit" className="btn btn-primary">
+          Update Account
+        </button>
       </form>
-      <button onClick={handleUpdateUser}>Update User</button>
     </div>
   );
-}
+};
+
+export default updateSpecificUser;

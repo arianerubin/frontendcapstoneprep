@@ -1,26 +1,18 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDeleteUserMutation } from "./deleteSlice";
 
-export default function deleteSpecificUser() {
-  const [deleteMutation, { errorD, loadingD }] = useDeleteUserMutation();
+const DeleteSpecificUser = ({ user }) => {
+  const [deleteMutation] = useDeleteUserMutation();
   const navigate = useNavigate();
 
-  if (loadingD) {
-    return <p>Loading...</p>;
-  }
-
-  if (errorD) {
-    return <div>Error: {error.message}</div>;
-  }
+  console.log("Users prop received:", user);
 
   const deleteU = async (userId) => {
     try {
-      if (loadingD) {
-        console.log("Loading deletion of User");
-      }
-      await deleteMutation(userId);
+      await deleteMutation(userId).unwrap();
       alert("User deleted successfully");
-      navigate("/account");
+      navigate("/Home");
       window.location.reload();
     } catch (error) {
       console.error("Failed to Delete User", error);
@@ -28,27 +20,37 @@ export default function deleteSpecificUser() {
     }
   };
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
-    <div>
-      {data?.user?.map((user) => {
-        return (
-          <ul key={user.id}>
-            <li className="user" key={user.userId}>
-              <p> userId: {user.userId}</p>
-              <p> firstName: {user.firstName} </p>
-              <p> lastName: {user.lastName} </p>
+    <>
+      <div className="deleteUser">
+        {user?.map((users) => {
+          return (
+            <div className="" key={users.id}>
+              <p>email: {users.email}</p>
+              <p>firstName: {users.firstName}</p>
+              <p>id: {users.userId}</p>
+              <p>lastName: {users.lastName}</p>
               <button
                 type="button"
-                onClick={() => deleteU(user.id)}
+                onClick={() => deleteU(users.id)}
                 className="btn btn-danger"
               >
                 Delete
               </button>
-            </li>
-          </ul>
-        );
-      })}
-      ;
-    </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
-}
+};
+
+export default DeleteSpecificUser;

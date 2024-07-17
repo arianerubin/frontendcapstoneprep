@@ -1,13 +1,14 @@
-import { userApi } from "../../app/api";
+import { api } from "../../app/api";
 import { createSlice } from "@reduxjs/toolkit";
 
-const deleteApi = userApi.injectEndpoints({
+const deleteApi = api.injectEndpoints({
   endpoints: (builder) => ({
     deleteUser: builder.mutation({
-      query: ({ userId }) => ({
+      query: (userId) => ({
         url: `/api/user/${userId}/delete`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Delete"],
     }),
   }),
 });
@@ -19,13 +20,13 @@ const deleteU = (state, { payload }) => {
 const deleteSlice = createSlice({
   name: "delete",
   initialState: {
-    id: null,
+    id: "",
     firstName: "",
     lastName: "",
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(userApi.endpoints.deleteUser.matchFulfilled, deleteU);
+    builder.addMatcher(deleteApi.endpoints.deleteUser.matchFulfilled, deleteU);
   },
 });
 

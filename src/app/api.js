@@ -7,14 +7,13 @@ export const api = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token = getState().register?.token || getState().login.token;
       const sessionToken = window.sessionStorage.getItem("token");
-      localStorage.removeItem("token");
       if (token || sessionToken) {
         headers.set("authorization", `Bearer ${token || sessionToken}`);
       }
       return headers;
     },
   }),
-  tagTypes: ["User"],
+  tagTypes: ["Update", "Delete"],
   endpoints: () => ({}),
   // getAllUsers: builder.query({
   //   query: () => "users",

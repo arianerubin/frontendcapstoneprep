@@ -2,7 +2,8 @@ import { useState } from "react";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Home from "./components/users/Home";
-import Protected from "./Shared/Protected";
+import UpdateSpecificUser from "./components/users/updateUser";
+// import Protected from "./Shared/Protected";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/Home" element={<Home />}></Route>
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<Login />}></Route>
+            <Route path="/edit/:id" element={<UpdateSpecificUser />}></Route>
           </Routes>
         </Router>
       </div>

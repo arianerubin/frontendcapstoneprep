@@ -1,28 +1,38 @@
-import { userApi } from "../../app/api";
+import { api } from "../../app/api";
 import { createSlice } from "@reduxjs/toolkit";
 
-const updateApi = userApi.injectEndpoints({
+const updateApi = api.injectEndpoints({
   endpoints: (builder) => ({
     updateUser: builder.mutation({
-      query: ({ userId, firstName, lastName, password }) => ({
-        url: `/api/user/${userId}/change`, //added change to the url
-        method: "PATCH",
-        body: { firstName, lastName, password },
+      query: ({ id, body }) => ({
+        url: `/api/user/${id}/change`, //added change to the url
+        method: "PUT",
+        body,
       }),
+      invalidatesTags: ["Update"],
     }),
   }),
 });
 
+const updateU = (state, { payload }) => {
+  state.userId = payload.id;
+};
+
 const updateSlice = createSlice({
-    name: "users",
-    initialState: {},
-    reducers: {},
-    extraReducers: (builder) => {
-      builder.addMatcher(userApi.endpoints.updateUser.matchFulfilled);
+  name: "users",
+  initialState: {
+    value: {},
+  },
+  reducers: {
+    setUserToBeEdited: (state, action) => {
+      state.value = action.payload;
     },
-  });
-  
+  },
+  // extraReducers: (builder) => {
+  //   builder.addMatcher(api.endpoints.updateUser.matchFulfilled, updateU);
+  // },
+});
 
-
-export const { useFetchUpdateUserQuery } = updateApi;
+export const { useUpdateUserMutation } = updateApi;
 export default updateSlice.reducer;
+export const { setUserToBeEdited } = updateSlice.actions;

@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { api } from "../../app/api";
 
-// get all users
-const userApi = api.injectEndpoints({
+const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
     fetchAllUser: builder.query({
       query: () => ({
@@ -15,12 +14,13 @@ const userApi = api.injectEndpoints({
 
 const userSlice = createSlice({
   name: "users",
-  initialState: {},
+  initialState: {}
+  ,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(userApi.endpoints.fetchAllUser.matchFulfilled);
+    builder.addMatcher(usersApi.endpoints.fetchAllUser.matchFulfilled);
   },
 });
 
-export const { useFetchAllUserQuery } = userApi;
+export const { useFetchAllUserQuery } = usersApi;
 export default userSlice.reducer;
